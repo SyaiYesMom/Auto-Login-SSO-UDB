@@ -29,11 +29,11 @@ genai.configure(api_key=gemini)
 model = genai.GenerativeModel("gemini-2.5-flash")
 
 async def get_and_solve_captcha():
-    print("\n🔄 Mengambil captcha baru...")
+    print("\n Mengambil captcha baru...")
     response = await client.get('https://auth.sso.udb.ac.id/renewcaptcha')
 
     if response.status_code != 200:
-        print("❌ Request captcha gagal:", response.status_code)
+        print(" Request captcha gagal:", response.status_code)
         return None, None
 
     data = response.json()
@@ -111,19 +111,19 @@ async def main():
     while True:
         attempt += 1
         print(f"\n==============================")
-        print(f"🔁 Percobaan LOGIN #{attempt}")
+        print(f" Percobaan LOGIN #{attempt}")
         print(f"==============================")
 
         token, captcha_text = await get_and_solve_captcha()
 
         if not token or not captcha_text or len(captcha_text) != 5:
-            print("⚠️ Captcha tidak valid, retry...\n")
+            print(" Captcha tidak valid, retry...\n")
             continue
 
         result = await login(token, captcha_text)
 
         if "captcha" in result.lower() or "wrong" in result.lower():
-            print("❌ Login gagal, captcha salah! retry...\n")
+            print(" Login gagal, captcha salah! retry...\n")
             continue
 
         print("\n LOGIN BERHASIL!")
